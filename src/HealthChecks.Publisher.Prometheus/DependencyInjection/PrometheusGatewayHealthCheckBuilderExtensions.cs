@@ -34,5 +34,22 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return builder;
         }
+        
+        /// <summary>
+        ///     Add a health check publisher for Prometheus.
+        /// </summary>
+        /// <remarks>
+        ///     For each <see cref="HealthReport" /> published a new metric value indicating the health check status (2 Healthy, 1
+        ///     Degraded, 0 Unhealthy)  and the total time the health check took to execute on seconds.
+        /// </remarks>
+        /// <param name="builder">The <see cref="IHealthChecksBuilder" />.</param>
+        /// <returns>The <see cref="IHealthChecksBuilder" />.</returns>
+        public static IHealthChecksBuilder AddPrometheusPublisher(this IHealthChecksBuilder builder)
+        {
+            builder.Services
+                .AddSingleton<IHealthCheckPublisher>(sp => new PrometheusPublisher(endpoint, job, instance));
+
+            return builder;
+        }
     }
 }
