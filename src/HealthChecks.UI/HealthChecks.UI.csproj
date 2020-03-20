@@ -5,7 +5,7 @@
     <PackageProjectUrl>$(PackageProjectUrl)</PackageProjectUrl>
     <Description>HealthChecks.UI Is a ASP.NET Core UI viewer of ASP.NET Core HealthChecks.For more information see https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks</Description>
     <PackageTags>HealthCheck;UI</PackageTags>
-    <Version>$(HealthCheckUI)</Version>
+    <Version>$(HealthCheckUI)-k8s-fork</Version>
     <RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
     <Company>$(Company)</Company>
     <Authors>$(Authors)</Authors>
