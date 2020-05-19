@@ -26,6 +26,11 @@ namespace HealthChecks.Elasticsearch
                 {
                     var settings = new ConnectionSettings(new Uri(_options.Uri));
 
+                    if (_options.RequestTimeout.HasValue)
+                    {
+                        settings = settings.RequestTimeout(_options.RequestTimeout.Value);
+                    }
+
                     if (_options.AuthenticateWithBasicCredentials)
                     {
                         settings = settings.BasicAuthentication(_options.UserName, _options.Password);
@@ -33,6 +38,11 @@ namespace HealthChecks.Elasticsearch
                     else if (_options.AuthenticateWithCertificate)
                     {
                         settings = settings.ClientCertificate(_options.Certificate);
+                    }
+
+                    if (_options.CertificateValidationCallback != null)
+                    {
+                        settings = settings.ServerCertificateValidationCallback(_options.CertificateValidationCallback);
                     }
 
                     lowLevelClient = new ElasticClient(settings);
@@ -43,7 +53,7 @@ namespace HealthChecks.Elasticsearch
                     }
                 }
 
-                var pingResult = await lowLevelClient.PingAsync(cancellationToken: cancellationToken);
+                var pingResult = await lowLevelClient.PingAsync(ct: cancellationToken);
                 var isSuccess = pingResult.ApiCall.HttpStatusCode == 200;
 
                 return isSuccess

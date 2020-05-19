@@ -5,16 +5,16 @@
 
 pool:
   vmImage: 'windows-latest'
-  
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: 'src/HealthChecks.UI/HealthChecks.UI.csproj'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '/f5d386a3-8dee-48df-bd28-a20129c023ad'
+steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'pack'
+      packagesToPack: 'src/HealthChecks.UI/HealthChecks.UI.csproj'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '/f5d386a3-8dee-48df-bd28-a20129c023ad'
