@@ -42,7 +42,27 @@ spec:
             image:
               type: string
             imagePullPolicy:
+              type: string            
+            stylesheetContent:
               type: string
+            serviceAnnotations:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+            deployAnnotations:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
           required:
             - name
             - servicesLabel
